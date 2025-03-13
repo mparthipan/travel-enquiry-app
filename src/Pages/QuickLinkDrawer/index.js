@@ -64,24 +64,35 @@ export const QuickLinkDrawer = ({ open, onClose, selectedQuickLink }) => {
                 {/* Form */}
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                        <TextField fullWidth label="First Name" variant="outlined" onChange={handleChange} />
+                        <TextField fullWidth label="First Name" name="firstName" variant="outlined" onChange={handleChange} />
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField fullWidth label="Last Name" variant="outlined" onChange={handleChange} />
+                        <TextField fullWidth label="Last Name" name="lastName" variant="outlined" onChange={handleChange} />
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField fullWidth label="Email" variant="outlined" onChange={handleChange} />
+                        <TextField fullWidth label="Email" name="email" variant="outlined" onChange={handleChange} />
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField fullWidth label="Phone" variant="outlined" onChange={handleChange} />
+                        <TextField fullWidth label="Phone" name="phone" variant="outlined" onChange={handleChange} />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField fullWidth label="Message" variant="outlined" multiline rows={3} onChange={handleChange} />
+                        <TextField fullWidth label="Message" name="message" variant="outlined" multiline rows={3} onChange={handleChange} />
                     </Grid>
                 </Grid>
 
                 {/* Fixed Submit & Close Buttons */}
-                <Box sx={{ position: "fixed", bottom: 16, right: 20, bgcolor: "white", p: 1 }}>
+                
+                <Box
+                    sx={{
+                        position: "sticky",
+                        bottom: 0,
+                        bgcolor: "white",
+                        p: 2,
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        borderTop: "1px solid #ddd"
+                    }}
+                >
                     <Button onClick={onClose} variant="outlined" sx={{ mr: 1 }} >
                         Close
                     </Button>

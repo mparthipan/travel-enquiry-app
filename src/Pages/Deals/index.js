@@ -8,7 +8,7 @@ const deals = [
     id: 1,
     title: "Save up to Rs.20,000*",
     description: "Hurry, book your international tickets now",
-    image:dummyImg, // Store in src/media folder
+    image: dummyImg, // Store in src/media folder
     category: "FLIGHT",
   },
   {
@@ -33,27 +33,51 @@ function ExclusiveDeals() {
   return (
     <Box sx={{ px: 5, mt: 4 }}>
       {/* Title and Categories */}
-      <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
-        <Typography variant="h4" fontWeight="bold">
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+          flexWrap: "wrap", // Allows wrapping on small screens
+        }}
+      >
+        <Typography variant="h5" fontWeight="bold">
           Exclusive <span style={{ color: "red" }}>Deals</span>
         </Typography>
-        {["HOT DEAL", "FLIGHT", "HOTEL", "HOLIDAYS", "VISA"].map((cat) => (
-          <Typography
-            key={cat}
-            variant="body1"
-            sx={{
-              cursor: "pointer",
-              fontWeight: selectedCategory === cat ? "bold" : "normal",
-              color: selectedCategory === cat ? "red" : "black",
-              borderBottom: selectedCategory === cat ? "2px solid red" : "none",
-              transition: "all 0.3s ease-in-out",
-            }}
-            onClick={() => setSelectedCategory(cat)}
-          >
-            {cat}
-          </Typography>
-        ))}
-        <Button sx={{ ml: "auto", color: "red", fontWeight: "bold" }}>
+
+        <Box
+          sx={{
+            display: "flex",
+            gap: 2,
+            flexWrap: "wrap",
+          }}
+        >
+          {["HOT DEAL", "FLIGHT", "HOTEL", "HOLIDAYS", "VISA"].map((cat) => (
+            <Typography
+              key={cat}
+              variant="body1"
+              sx={{
+                cursor: "pointer",
+                fontWeight: selectedCategory === cat ? "bold" : "normal",
+                color: selectedCategory === cat ? "red" : "black",
+                borderBottom: selectedCategory === cat ? "2px solid red" : "none",
+                transition: "all 0.3s ease-in-out",
+              }}
+              onClick={() => setSelectedCategory(cat)}
+            >
+              {cat}
+            </Typography>
+          ))}
+        </Box>
+
+        <Button
+          sx={{
+            ml: "auto",
+            color: "red",
+            fontWeight: "bold",
+            fontSize: { xs: "12px", sm: "14px" }, // Smaller font on mobile
+          }}
+        >
           View All Deals
         </Button>
       </Box>
