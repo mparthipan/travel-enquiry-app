@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import FlightIcon from "@mui/icons-material/Flight";
+import TrainIcon from "@mui/icons-material/Train";
 import HotelIcon from "@mui/icons-material/Apartment";
 import VisaIcon from "@mui/icons-material/Description";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
@@ -11,6 +12,7 @@ import { QuickLinkDrawer } from "../QuickLinkDrawer";
 
 const quickLinks = [
     { label: "Flights", icon: <FlightIcon /> },
+    { label: "Trains", icon: <TrainIcon /> },
     { label: "Hotel", icon: <HotelIcon /> },
     { label: "Visa", icon: <VisaIcon /> },
     { label: "Holidays", icon: <BeachAccessIcon /> },

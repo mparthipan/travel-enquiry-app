@@ -70,7 +70,7 @@ function ExclusiveDeals() {
           ))}
         </Box>
 
-        <Button
+        {/* <Button
           sx={{
             ml: "auto",
             color: "red",
@@ -79,7 +79,7 @@ function ExclusiveDeals() {
           }}
         >
           View All Deals
-        </Button>
+        </Button> */}
       </Box>
 
       {/* Deals Section */}
