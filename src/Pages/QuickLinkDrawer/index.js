@@ -8,7 +8,8 @@ import { useTheme } from "@mui/material/styles";
 import { TrainBooking } from "./train";
 import FlightBooking from "./flight";
 import { HotelBooking } from "./hotel";
-import VisaPassportService from "./visaPassport";
+import VisaPassportService from "./visa";
+import { CarRentalBooking } from "./cars";
 
 export const QuickLinkDrawer = ({ open, onClose, selectedQuickLink }) => {
     const theme = useTheme();
@@ -21,6 +22,7 @@ export const QuickLinkDrawer = ({ open, onClose, selectedQuickLink }) => {
             {selectedQuickLink === "Flights" && <FlightBooking selectedQuickLink={selectedQuickLink} onClose={onClose} />}
             {selectedQuickLink === "Hotel" && <HotelBooking selectedQuickLink={selectedQuickLink} onClose={onClose} />}
             {selectedQuickLink === "Visa" && <VisaPassportService selectedQuickLink={selectedQuickLink} onClose={onClose} />}
+            {selectedQuickLink === "Cars" && <CarRentalBooking selectedQuickLink={selectedQuickLink} onClose={onClose} />}
 
         </Drawer>
     );

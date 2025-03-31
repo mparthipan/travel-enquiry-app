@@ -1,22 +1,22 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Container, Toolbar, Typography } from "@mui/material";
 import QuickLinks from "../QuickLinks";
 import ExclusiveDeals from "../Deals";
 import PopularDestinations from "../Destination";
-
+import TravelStoriesCarousel from "./TravelStoriesCarousel";
+import WebLogo from "../../Media/logo_pride.png"
 const Dashboard = () => {
     return (
         <div>
             {/* Header */}
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                        Your Logo Here
-                    </Typography>
+                    <img src={WebLogo} alt="logo" style={{height:"50px", width:"100px"}}/>
                 </Toolbar>
             </AppBar>
             <QuickLinks />
-            <ExclusiveDeals />
-            <PopularDestinations/>
+            <Container maxWidth="lg" sx={{ my: 6 }}><ExclusiveDeals /></Container>
+            <Container maxWidth="lg" sx={{ my: 6 }}><PopularDestinations/></Container>
+            {/* <TravelStoriesCarousel/> */}
         </div>
     );
 }

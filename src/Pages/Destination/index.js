@@ -27,13 +27,12 @@ const PopularDestinations = () => {
     : allDestinations.filter(dest => dest.category === selectedCategory);
 
   return (
-    <Box sx={{ p: { xs: 2, md: 3 } }}>
+    <Box sx={{ px: 5, mt: 4 }}>
       {/* 🔴 Title */}
-      <Typography variant="h5" fontWeight="bold" textAlign="center">
+      {/* <Typography variant="h5" fontWeight="bold" textAlign="center">
         Popular <span style={{ color: "red" }}>Destinations</span>
       </Typography>
 
-      {/* 🔴 Navigation Tabs */}
       <Box sx={{ display: "flex", gap: 2, mt: 2, mb: 2, justifyContent: "center", flexWrap: "wrap" }}>
         {["all", "international", "domestic"].map((category) => (
           <Typography
@@ -50,7 +49,45 @@ const PopularDestinations = () => {
             {category.toUpperCase()}
           </Typography>
         ))}
-      </Box>
+      </Box> */}
+
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+          flexWrap: "wrap", // Allows wrapping on small screens
+        }}
+      >
+        <Typography variant="h5" fontWeight="bold">
+        Popular <span style={{ color: "red" }}>Destinations</span>
+        </Typography>
+
+        <Box
+          sx={{
+            display: "flex",
+            gap: 2,
+            flexWrap: "wrap",
+          }}
+        >
+          {["all", "international", "domestic"].map((cat) => (
+            <Typography
+              key={cat}
+              variant="body1"
+              sx={{
+                cursor: "pointer",
+                fontWeight: selectedCategory === cat ? "bold" : "normal",
+                color: selectedCategory === cat ? "red" : "black",
+                borderBottom: selectedCategory === cat ? "2px solid red" : "none",
+                transition: "all 0.3s ease-in-out",
+              }}
+              onClick={() => setSelectedCategory(cat)}
+            >
+              {cat.toUpperCase()}
+            </Typography>
+          ))}
+        </Box>
+        </Box>
 
       {/* 🔴 Main Content */}
       <Grid container spacing={3}>

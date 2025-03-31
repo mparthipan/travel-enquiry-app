@@ -4,30 +4,34 @@ import FlightIcon from "@mui/icons-material/Flight";
 import TrainIcon from "@mui/icons-material/Train";
 import HotelIcon from "@mui/icons-material/Apartment";
 import VisaIcon from "@mui/icons-material/Description";
+import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import DirectionsBoatIcon from "@mui/icons-material/DirectionsBoat";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { QuickLinkDrawer } from "../QuickLinkDrawer";
-
+import { useNavigate } from "react-router-dom";
 const quickLinks = [
     { label: "Flights", icon: <FlightIcon /> },
     { label: "Trains", icon: <TrainIcon /> },
     { label: "Hotel", icon: <HotelIcon /> },
     { label: "Visa", icon: <VisaIcon /> },
-    { label: "Holidays", icon: <BeachAccessIcon /> },
-    { label: "Bus", icon: <DirectionsBusIcon /> },
-    { label: "Cruise", icon: <DirectionsBoatIcon /> },
-    { label: "More", icon: <MoreHorizIcon /> },
+    { label: "Passport", icon: <ImportContactsIcon /> },
+    { label: "Cars", icon: <DirectionsBusIcon /> },
 ];
 
 function QuickLinks() {
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const navigate = useNavigate()
     const [selected, setSelected] = useState("Flights"); // Default selected
 
     const handleOpenDrawer = (link) => {
-        setSelected(link);
-        setDrawerOpen(true);
+        if(link==="Passport"){
+            navigate("/passportService")
+        }else{
+            setSelected(link);
+            setDrawerOpen(true);    
+        }
     };
     return (
         <>
