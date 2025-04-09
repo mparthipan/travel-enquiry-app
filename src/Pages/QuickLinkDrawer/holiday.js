@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ClearIcon from "@mui/icons-material/Clear";
 import {
     Typography,
     Button,
@@ -8,13 +7,10 @@ import {
     Box,
     Autocomplete,
     CircularProgress,
-    FormControl,
-    MenuItem,
-    FormHelperText,
-    InputAdornment,
-    InputLabel,
-    Select,
+    Popover
 } from "@mui/material";
+import { Add, Remove } from "@mui/icons-material";
+
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -24,7 +20,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 
 
-export const CarRentalBooking = ({ onClose, selectedQuickLink }) => {
+export const HolidayPack = ({ onClose, selectedQuickLink }) => {
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -32,17 +28,41 @@ export const CarRentalBooking = ({ onClose, selectedQuickLink }) => {
         phone: "",
         message: "",
         journeyDate: null,
-        sourceCity: null,
-        noOfDays: "1",
-        noOfPerson:"1",
-        carType: "",
+        fromDestination: null, toDestination: null,
+        destination: null, // New field for dropdown
     });
-
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [travelers, setTravelers] = useState({
+        adults: 1,
+        children: 0
+    });
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const open = Boolean(anchorEl);
+    const id = open ? "travelers-popover" : undefined;
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     const [errors, setErrors] = useState({});
     const [cityOptions, setCityOptions] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    // const theme = useTheme();
+    // const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+    const handleTraveller = (type, operation) => {
+        setTravelers((prev) => {
+            const newValue =
+                operation === "increase"
+                    ? prev[type] + 1
+                    : Math.max(type === "adults" ? 1 : 0, prev[type] - 1);
+
+            return { ...prev, [type]: newValue };
+        });
     };
 
     const validateForm = () => {
@@ -64,22 +84,18 @@ export const CarRentalBooking = ({ onClose, selectedQuickLink }) => {
         }
 
         // From City Validation
-        if (!formData.sourceCity) {
-            newErrors.sourceCity = "Source city is required";
+        if (!formData.fromCity) {
+            newErrors.fromCity = "From city is required";
         }
 
         // To City Validation
-        if (!formData.noOfDays) {
-            newErrors.noOfDays = "No. of. Days is required";
-        }
-
-        if (!formData.noOfPerson) {
-            newErrors.noOfPerson = "No. of. Person is required";
+        if (!formData.toCity) {
+            newErrors.toCity = "To city is required";
         }
 
         // Journey Date Validation
         if (!formData.journeyDate) {
-            newErrors.journeyDate = "Journey date is required";
+            newErrors.journeyDate = "Departure date is required";
         }
 
         setErrors(newErrors);
@@ -112,14 +128,11 @@ export const CarRentalBooking = ({ onClose, selectedQuickLink }) => {
             });
 
             setCityOptions(cities);
-            setLoading(false);
-
         } catch (error) {
             console.error("Error fetching cities:", error);
             setCityOptions([]);
-            setLoading(false);
-
         }
+        setLoading(false);
     };
 
 
@@ -128,18 +141,18 @@ export const CarRentalBooking = ({ onClose, selectedQuickLink }) => {
     }, [])
     const handleSubmit = () => {
         if (validateForm()) {
-            const { firstName, lastName, email, phone, message, journeyDate, noOfPerson, noOfDays, fromCity, carType } = formData;
+            const { firstName, lastName, email, phone, message, journeyDate, roomCount, toCity, fromCity } = formData;
 
             const trainTicketMessage = `
           🔹 *New Inquiry for ${selectedQuickLink}* 🔹
           🏷️ Name: ${firstName} ${lastName}
           📧 Email: ${email}
           📞 Phone: ${phone}
-          📍 Source City: ${fromCity?.label || "Not Selected"}
-          Journey Date: ${journeyDate}
-          No of Person: ${noOfPerson}
-          No of Days: ${noOfDays}
-          Car Type: ${carType}
+           From Destination: ${fromCity || "Not Selected"}
+           To Destination: ${toCity || "Not Selected"}
+           Guest Count: ${`Adults: ${travelers.adults}, Children: ${travelers.children}`}
+           Room Count: ${roomCount}
+           Journey Date: ${journeyDate}
           ✍️ Message: ${message}
         `;
 
@@ -149,9 +162,6 @@ export const CarRentalBooking = ({ onClose, selectedQuickLink }) => {
 
             onClose();
         }
-    };
-    const handleClear = (name) => {
-        setFormData({ ...formData, [name]: "" }); // Reset selection
     };
 
     return (
@@ -204,47 +214,21 @@ export const CarRentalBooking = ({ onClose, selectedQuickLink }) => {
                 </Grid>
                 <Grid item xs={12} md={12}>
                     <Typography variant="h6" fontWeight="bold">
-                        Car Rental Details
+                        Holiday package Details
                     </Typography>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <Autocomplete
-                        options={cityOptions}
-                        getOptionLabel={(option) => option.label}
-                        value={formData.sourceCity}
-                        loading={loading}
-                        onChange={(event, newValue) => setFormData({ ...formData, sourceCity: newValue })}
-                        onInputChange={(event, newInputValue) => fetchIndianCities(newInputValue)}
-                        renderInput={(params) => (
-                            <TextField {...params} label="From" variant="outlined" fullWidth
-                                error={!!errors.sourceCity}
-                                helperText={errors.sourceCity}
-                                InputProps={{
-                                    ...params.InputProps,
-                                    endAdornment: (
-                                        <>
-                                            {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                                            {params.InputProps.endAdornment}
-                                        </>
-                                    )
-                                }}
-                            />
-                        )}
-                    />
-                </Grid>
-
-                <Grid item xs={12} md={6}>
-                    <TextField fullWidth type="number" value ={formData.noOfPerson} label="No. Of. Person" error={!!errors.noOfPerson}
-                        helperText={errors.noOfPerson} name="noOfPerson" variant="outlined" onChange={handleChange} />
+                    <TextField fullWidth type="text" error={!!errors.fromCity}
+                        helperText={errors.fromCity} label="From City" name="fromCity" variant="outlined" onChange={handleChange} />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <TextField fullWidth type="number" value ={formData.noOfDays} error={!!errors.noOfDays}
-                        helperText={errors.noOfDays} label="No. Of. Days" name="noOfDays" variant="outlined" onChange={handleChange} />
+                    <TextField fullWidth type="text" error={!!errors.toCity}
+                        helperText={errors.toCity} label="To City/Country" name="toCity" variant="outlined" onChange={handleChange} />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
-                            label="Journey Date"
+                            label="Departure Date"
                             disablePast
                             value={formData.journeyDate}
                             onChange={(newValue) => setFormData({ ...formData, journeyDate: newValue })}
@@ -259,31 +243,67 @@ export const CarRentalBooking = ({ onClose, selectedQuickLink }) => {
                     </LocalizationProvider>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <FormControl fullWidth variant="outlined" error={!!errors.carType}>
-                        <InputLabel id="carType" >Car Type</InputLabel>
-                        <Select label="Car Type" labelId="carType"
-                            endAdornment={
-                                formData.carType && (
-                                    <InputAdornment position="end">
-                                        <IconButton onClick={() => handleClear("carType")} edge="end">
-                                            <ClearIcon style={{ paddingRight: "32px" }} />
-                                        </IconButton>
-                                    </InputAdornment>
-                                )
-                            } value={formData.carType} name="carType" onChange={handleChange}>
-                            <MenuItem value="Sedan">Sedan</MenuItem>
-                            <MenuItem value="SUV">SUV</MenuItem>
-                            <MenuItem value="Hatchback">Hatchback</MenuItem>
-                            <MenuItem value="Coupe">Coupe</MenuItem>
-                            <MenuItem value="Convertible">Convertible</MenuItem>
-                            <MenuItem value="Wagon">Wagon</MenuItem>
-                            <MenuItem value="Pickup Truck">Pickup Truck</MenuItem>
-                            <MenuItem value="Minivan">Minivan</MenuItem>
-                        </Select>
-                        {errors.visaType && (
-                            <FormHelperText>{errors.visaType}</FormHelperText>
-                        )}
-                    </FormControl>
+                    <TextField fullWidth type="number" label="No. Of. Rooms" name="roomCount" variant="outlined" onChange={handleChange} value={formData.roomCount} />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <div>
+                        <TextField
+                            label="Guests"
+                            value={`Adults: ${travelers.adults}, Children: ${travelers.children}`}
+                            onClick={handleClick}
+                            fullWidth
+                            readOnly
+                        />
+
+                        <Popover
+                            id={id}
+                            open={open}
+                            anchorEl={anchorEl}
+                            onClose={handleClose}
+                            anchorOrigin={{
+                                vertical: "bottom",
+                                horizontal: "left",
+                            }}
+                        >
+                            <Box sx={{ p: 2, width: 250 }}>
+                                {[
+                                    { label: "Adults", sub: "", type: "adults" },
+                                    { label: "Children", sub: "2-12 Years", type: "children" }
+                                    // { label: "Infants", sub: "0-23 Months", type: "infants" },
+                                ].map((item) => (
+                                    <Box
+                                        key={item.type}
+                                        display="flex"
+                                        justifyContent="space-between"
+                                        alignItems="center"
+                                        sx={{ mb: 2 }}
+                                    >
+                                        <Box>
+                                            <Typography variant="subtitle1">{item.label}</Typography>
+                                            {item.sub && (
+                                                <Typography variant="caption" color="textSecondary">
+                                                    {item.sub}
+                                                </Typography>
+                                            )}
+                                        </Box>
+
+                                        <Box display="flex" alignItems="center">
+                                            <IconButton
+                                                onClick={() => handleTraveller(item.type, "decrease")}
+                                                disabled={travelers[item.type] === (item.type === "adults" ? 1 : 0)}
+                                            >
+                                                <Remove />
+                                            </IconButton>
+                                            <Typography sx={{ mx: 1 }}>{travelers[item.type]}</Typography>
+                                            <IconButton onClick={() => handleTraveller(item.type, "increase")}>
+                                                <Add />
+                                            </IconButton>
+                                        </Box>
+                                    </Box>
+                                ))}
+                            </Box>
+                        </Popover>
+                    </div>
                 </Grid>
                 <Grid item xs={12}>
                     <TextField fullWidth label="Message" name="message" variant="outlined" multiline rows={3} onChange={handleChange} />

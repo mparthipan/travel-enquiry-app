@@ -101,17 +101,18 @@ export const HotelBooking = ({ onClose, selectedQuickLink }) => {
 
     const handleSubmit = () => {
         if (validateForm()) {
-            const { firstName, lastName, email, phone, message, journeyDate, trainClass, toCity, fromCity } = formData;
+            const { firstName, lastName, email, phone, message, destinationProperty, checkIn, checkOut, roomCount } = formData;
 
             const trainTicketMessage = `
           🔹 *New Inquiry for ${selectedQuickLink}* 🔹
           🏷️ Name: ${firstName} ${lastName}
           📧 Email: ${email}
           📞 Phone: ${phone}
-          📍 From Destination: ${fromCity?.label || "Not Selected"}
-          📍 To Destination: ${toCity?.label || "Not Selected"}
-          📍 Train Class: ${trainClass?.label}
-          📍 Journey Date: ${journeyDate}
+           City/Hotel/Area/building: ${destinationProperty}
+           Check In: ${checkIn}
+           Check out: ${checkOut}
+           No of Rooms: ${roomCount}
+           No of Guest: ${`Adults: ${travelers.adults}, Children: ${travelers.children}`}
           ✍️ Message: ${message}
         `;
 

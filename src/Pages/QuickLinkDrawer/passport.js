@@ -5,9 +5,12 @@ import passportBg from "../../Media/passport-header-bg.png"
 import { useTheme } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
 import WebLogo from "../../Media/logo_pride.png"
+import { useNavigate } from 'react-router-dom';
 
 const PassportApplicationPage = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
+
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -67,8 +70,7 @@ const PassportApplicationPage = () => {
     return (
         <> <AppBar position="static">
             <Toolbar>
-                                   <img src={WebLogo} alt="logo" style={{height:"50px", width:"100px"}}/>
-               
+                <img src={WebLogo} alt="logo" style={{ height: "50px", width: "100px" }}  onClick={()=>navigate("/")}/>
             </Toolbar>
         </AppBar>
 

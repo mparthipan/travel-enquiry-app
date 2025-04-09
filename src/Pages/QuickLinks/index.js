@@ -15,15 +15,15 @@ const quickLinks = [
     { label: "Flights", icon: <FlightIcon /> },
     { label: "Trains", icon: <TrainIcon /> },
     { label: "Hotel", icon: <HotelIcon /> },
+    { label: "Holiday Pack", icon: <BeachAccessIcon /> },
     { label: "Visa", icon: <VisaIcon /> },
     { label: "Passport", icon: <ImportContactsIcon /> },
     { label: "Cars", icon: <DirectionsBusIcon /> },
 ];
 
-function QuickLinks() {
-    const [drawerOpen, setDrawerOpen] = useState(false);
+function QuickLinks({drawerOpen, setDrawerOpen}) {
     const navigate = useNavigate()
-    const [selected, setSelected] = useState("Flights"); // Default selected
+    const [selected, setSelected] = useState(""); // Default selected
 
     const handleOpenDrawer = (link) => {
         if(link==="Passport"){

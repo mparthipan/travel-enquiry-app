@@ -1,163 +1,325 @@
 import React, { useState } from "react";
-import { 
-  Box, Typography, Grid, Card, CardMedia, 
-  List, ListItem, ListItemAvatar, Avatar, ListItemText, useMediaQuery 
+import {
+  Box, Typography, Grid, Card, CardMedia,
+  List, ListItem, ListItemAvatar, Avatar, ListItemText, useMediaQuery,
+  CardContent
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import dummyImg from "../../Media/Mega-sale.jpg";  
+import dummyImg from "../../Media/Mega-sale.jpg";
+import thai from "../../Media/thailand.avif";
+import dubai from "../../Media/dubai.avif";
+import veit from "../../Media/veitnam.avif";
+import malay from "../../Media/malaysia.avif";
+import mald from "../../Media/maldives.avif";
+import sing from "../../Media/singapore1.avif";
+import bali from "../../Media/bali.avif";
+import europe from "../../Media/europe.avif";
+import australia from "../../Media/australia.jpg";
+import newzea from "../../Media/newzea.avif";
+import turkey from "../../Media/turkey.avif";
 
-const allDestinations = [
-  { name: "Turkey", price: "₹ 48070/-", img: dummyImg, description: "Travel to Turkey", category: "international" },
-  { name: "Maldives", price: "₹ 55749/-", img: dummyImg, description: "Maldives Packages", category: "international" },
-  { name: "Egypt", price: "₹ 57607/-", img: dummyImg, description: "Discover Egypt", category: "international" },
-  { name: "Sri Lanka", price: "₹ 23800/-", img: dummyImg, description: "Explore Sri Lanka", category: "international" },
-  { name: "Goa", price: "₹ 15923/-", img: dummyImg, description: "Goa Beaches", category: "domestic" },
-  { name: "Manali", price: "₹ 18499/-", img: dummyImg, description: "Himalayan Adventure", category: "domestic" },
-  { name: "Jaipur", price: "₹ 24999/-", img: dummyImg, description: "Royal Rajasthan", category: "domestic" },
+import goa from "../../Media/goa.avif";
+import kerala from "../../Media/kerala.avif";
+import manali from "../../Media/manali.avif";
+import jaipur from "../../Media/jaipur.avif";
+import kashmir from "../../Media/kashmir.avif";
+import andaman from "../../Media/andhaman.avif";
+import rishikesh from "../../Media/rishi.avif";
+import udaipur from "../../Media/udaipur.avif";
+import shimla from "../../Media/shimla.avif";
+import darjeeling from "../../Media/darji.jpeg";
+import ooty from "../../Media/ooty.avif";
+import ladakh from "../../Media/ladakh.webp";
+import coorg from "../../Media/coorg.avif";
+import pondicherry from "../../Media/pondi.avif";
+import munnar from "../../Media/munar.avif";
+import rajasthan from "../../Media/rajasthan.avif";
+import sikkim from "../../Media/sikkim.avif";
+import auli from "../../Media/auli.avif";
+
+
+export const destinations = [
+  {
+    id: 1,
+    name: "Thailand",
+    price: "₹69,700",
+    image: thai
+  },
+  {
+    id: 2,
+    name: "Dubai",
+    price: "₹13,700",
+    image: dubai
+  },
+  {
+    id: 3,
+    name: "Vietnam",
+    price: "₹12,300", 
+    image: veit
+  },
+  {
+    id: 4,
+    name: "Malaysia",
+    price: "₹1,20,800",
+    image: malay
+  },
+  {
+    id: 5,
+    name: "Maldives",
+    price: "₹67,700",
+    image: mald
+  },
+  {
+    id: 6,
+    name: "Singapore",
+    price: "₹40,800",
+    image: sing
+  },
+  {
+    id: 7,
+    name: "Bali",
+    price: "₹74,500",
+    image: bali
+  },
+  {
+    id: 8,
+    name: "Europe",
+    price: "₹1,13,000",
+    image: europe
+  },
+  {
+    id: 9,
+    name: "Australia",
+    price: "₹70,700",
+    image: australia
+  },
+  {
+    id: 10,
+    name: "New Zealand",
+    price: "₹28,300",
+    image: newzea
+  },
+  {
+    id: 11,
+    name: "Turkey",
+    price: "₹3,30,500",
+    image: turkey
+  }
 ];
 
-const PopularDestinations = () => {
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+export const domesticDestinations = [
+  {
+    id: 1,
+    name: "Goa",
+    price: "₹12,500",
+    image: goa,
+  },
+  {
+    id: 2,
+    name: "Kerala",
+    price: "₹15,800",
+    image: kerala,
+  },
+  {
+    id: 3,
+    name: "Manali",
+    price: "₹9,999",
+    image: manali,
+  },
+  {
+    id: 4,
+    name: "Jaipur",
+    price: "₹8,300",
+    image: jaipur,
+  },
+  {
+    id: 5,
+    name: "Kashmir",
+    price: "₹16,400",
+    image: kashmir,
+  },
+  {
+    id: 6,
+    name: "Andaman & Nicobar",
+    price: "₹19,500",
+    image: andaman,
+  },
+  {
+    id: 7,
+    name: "Rishikesh",
+    price: "₹7,800",
+    image: rishikesh,
+  },
+  {
+    id: 8,
+    name: "Udaipur",
+    price: "₹10,200",
+    image: udaipur,
+  },
+  {
+    id: 9,
+    name: "Shimla",
+    price: "₹9,200",
+    image: shimla,
+  },
+  {
+    id: 10,
+    name: "Darjeeling",
+    price: "₹11,000",
+    image: darjeeling,
+  },
+  {
+    id: 11,
+    name: "Ooty",
+    price: "₹13,400",
+    image: ooty,
+  },
+  {
+    id: 12,
+    name: "Ladakh",
+    price: "₹18,200",
+    image: ladakh,
+  },
+  {
+    id: 13,
+    name: "Coorg",
+    price: "₹10,900",
+    image: coorg,
+  },
+  {
+    id: 14,
+    name: "Pondicherry",
+    price: "₹8,750",
+    image: pondicherry,
+  },
+  {
+    id: 15,
+    name: "Munnar",
+    price: "₹12,000",
+    image: munnar,
+  },
+  {
+    id: 16,
+    name: "Rajasthan Tour",
+    price: "₹17,900",
+    image: rajasthan,
+  },
+  {
+    id: 17,
+    name: "Sikkim",
+    price: "₹14,600",
+    image: sikkim,
+  },
+  {
+    id: 18,
+    name: "Auli",
+    price: "₹13,500",
+    image: auli,
+  },
+];
 
-  // Filter destinations based on category
-  const filteredDestinations = selectedCategory === "all"
-    ? allDestinations
-    : allDestinations.filter(dest => dest.category === selectedCategory);
 
+export const BestSellingDestinations = () => {
   return (
-    <Box sx={{ px: 5, mt: 4 }}>
-      {/* 🔴 Title */}
-      {/* <Typography variant="h5" fontWeight="bold" textAlign="center">
-        Popular <span style={{ color: "red" }}>Destinations</span>
+    <Box sx={{ px: { xs: 0, md: 0 }, py: 2 }}>
+      {/* <Typography variant="h5" fontWeight="bold" gutterBottom>
+        Best Selling Destinations!
+      </Typography> */}
+      <Typography variant="h5" fontWeight="bold" sx={{paddingBottom:"16px"}}>
+        International <span style={{ color: "red" }}>Destinations</span>
       </Typography>
-
-      <Box sx={{ display: "flex", gap: 2, mt: 2, mb: 2, justifyContent: "center", flexWrap: "wrap" }}>
-        {["all", "international", "domestic"].map((category) => (
-          <Typography
-            key={category}
-            sx={{
-              color: selectedCategory === category ? "red" : "gray",
-              fontWeight: "bold",
-              cursor: "pointer",
-              borderBottom: selectedCategory === category ? "2px solid red" : "none",
-              fontSize: { xs: "14px", sm: "16px" },
-            }}
-            onClick={() => setSelectedCategory(category)}
-          >
-            {category.toUpperCase()}
-          </Typography>
-        ))}
-      </Box> */}
-
       <Box
         sx={{
           display: "flex",
-          alignItems: "center",
+          overflowX: "auto",
           gap: 2,
-          flexWrap: "wrap", // Allows wrapping on small screens
+          pb: 1,
+          scrollSnapType: "x mandatory",
+          "&::-webkit-scrollbar": { display: "none" }, // Hide scrollbar
         }}
       >
-        <Typography variant="h5" fontWeight="bold">
-        Popular <span style={{ color: "red" }}>Destinations</span>
-        </Typography>
-
-        <Box
-          sx={{
-            display: "flex",
-            gap: 2,
-            flexWrap: "wrap",
-          }}
-        >
-          {["all", "international", "domestic"].map((cat) => (
-            <Typography
-              key={cat}
-              variant="body1"
-              sx={{
-                cursor: "pointer",
-                fontWeight: selectedCategory === cat ? "bold" : "normal",
-                color: selectedCategory === cat ? "red" : "black",
-                borderBottom: selectedCategory === cat ? "2px solid red" : "none",
-                transition: "all 0.3s ease-in-out",
-              }}
-              onClick={() => setSelectedCategory(cat)}
-            >
-              {cat.toUpperCase()}
-            </Typography>
-          ))}
-        </Box>
-        </Box>
-
-      {/* 🔴 Main Content */}
-      <Grid container spacing={3}>
-        
-        {/* 🟢 Left Side List */}
-        <Grid item xs={12} md={5}>
-          <Box 
-            sx={{ 
-              bgcolor: "white", 
-              borderRadius: 3, 
-              p: 2, 
-              height: isMobile ? "auto" : "100%", 
-              maxHeight: isMobile ? "300px" : "400px", 
-              overflowY: "auto",
+        {destinations.map((item) => (
+          <Box
+            key={item.id}
+            sx={{
+              minWidth: 220,
+              flex: "0 0 auto",
+              scrollSnapAlign: "start",
             }}
           >
-            <List>
-              {filteredDestinations.map((item, index) => (
-                <ListItem key={index} divider>
-                  <ListItemAvatar>
-                    <Avatar variant="rounded" src={item.img} sx={{ width: 50, height: 50 }} />
-                  </ListItemAvatar>
-                  <ListItemText primary={item.name} />
-                  <Typography 
-                    sx={{ fontSize: 14, bgcolor: "#f5f5f5", px: 1.5, py: 0.5, borderRadius: 3 }}
-                  >
-                    {item.price}
-                  </Typography>
-                </ListItem>
-              ))}
-            </List>
+            <Card elevation={1} sx={{ borderRadius: 2, height: "100%" }}>
+              <CardMedia
+                component="img"
+                height="180"
+                image={item.image}
+                alt={item.name}
+                sx={{ borderRadius: "8px 8px 0 0" }}
+              />
+              <CardContent>
+                <Typography variant="subtitle1" fontWeight="bold">
+                  {item.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Starting at {item.price} Per person
+                </Typography>
+              </CardContent>
+            </Card>
           </Box>
-        </Grid>
-
-        {/* 🟢 Right Side Grid Cards */}
-        <Grid item xs={12} md={7}>
-          <Grid container spacing={2}>
-            {filteredDestinations.map((item, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card sx={{ borderRadius: 3, overflow: "hidden", boxShadow: 3, position: "relative" }}>
-                  <CardMedia 
-                    component="img" 
-                    height={isMobile ? "150" : "180"} 
-                    image={item.img} 
-                    alt={item.name} 
-                  />
-                  {/* Overlay Effect */}
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      width: "100%",
-                      background: "rgba(0, 0, 0, 0.6)",
-                      color: "white",
-                      padding: "8px",
-                      backdropFilter: "blur(4px)",
-                    }}
-                  >
-                    <Typography variant="h6" fontWeight="bold">{item.name}</Typography>
-                    <Typography variant="body2">{item.description} {item.price}</Typography>
-                  </Box>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
-      </Grid>
+        ))}
+      </Box>
     </Box>
   );
 };
 
-export default PopularDestinations;
+
+export const PopularDestinations = () => {
+  return (
+    <Box sx={{ px: { xs: 0, md: 0 }, py: 2 }}>
+      {/* <Typography variant="h5" fontWeight="bold" gutterBottom>
+        Best Selling Destinations!
+      </Typography> */}
+      <Typography variant="h5" fontWeight="bold" sx={{paddingBottom:"16px"}}>
+        Domestic <span style={{ color: "red" }}>Destinations</span>
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          overflowX: "auto",
+          gap: 2,
+          pb: 1,
+          scrollSnapType: "x mandatory",
+          "&::-webkit-scrollbar": { display: "none" }, // Hide scrollbar
+        }}
+      >
+        {domesticDestinations.map((item) => (
+          <Box
+            key={item.id}
+            sx={{
+              minWidth: 220,
+              flex: "0 0 auto",
+              scrollSnapAlign: "start",
+            }}
+          >
+            <Card elevation={1} sx={{ borderRadius: 2, height: "100%" }}>
+              <CardMedia
+                component="img"
+                height="180"
+                image={item.image}
+                alt={item.name}
+                sx={{ borderRadius: "8px 8px 0 0" }}
+              />
+              <CardContent>
+                <Typography variant="subtitle1" fontWeight="bold">
+                  {item.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Starting at {item.price} Per person
+                </Typography>
+              </CardContent>
+            </Card>
+          </Box>
+        ))}
+      </Box>
+    </Box>
+  );
+};

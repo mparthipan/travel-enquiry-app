@@ -8,6 +8,12 @@ import pic2 from "../../Media/pic2.webp"
 import pic3 from "../../Media/pic3.webp"
 import pic4 from "../../Media/pic4.webp"
 import pic5 from "../../Media/pic5.webp"
+import beach from "../../Media/beach.jpg"
+import resort from "../../Media/Resorts.avif"
+import resort_2 from "../../Media/resort_2.avif"
+
+
+
 
 const TravelStoriesCarousel = () => {
     const theme = useTheme();
@@ -17,11 +23,11 @@ const TravelStoriesCarousel = () => {
     const stories = [
         { title: "Top Places On Earth", image: pic1, description: "" },
         { title: "Family Vacations in Summer", image: pic2, description: "" },
-        { title: "Make International Flight Bookings", image: pic3, description: "" },
-        { title: "Indian Places That Look International", image: pic4, description: "" },
-        { title: "Exotic Beaches Around The World", image: pic5, description: "" },
+        { title: "Make International Flight Bookings", image: pic4, description: "" },
+        { title: "Indian Places That Look International", image: pic3, description: "" },
+        { title: "Exotic Beaches Around The World", image: beach, description: "" },
         { title: "Historical Wonders", image: pic1, description: "" },
-        { title: "Luxury Resorts You Should Visit", image: pic2, description: "" }
+        { title: "Luxury Resorts You Should Visit", image: resort_2, description: "" }
     ];
 
     const settings = {
@@ -38,9 +44,12 @@ const TravelStoriesCarousel = () => {
 
     return (
         <Container maxWidth="lg" sx={{ my: 6 }}>
-            <Typography variant="h4" sx={{ fontWeight: 700, mb: 3, textAlign: 'center' }}>
+            {/* <Typography variant="h4" sx={{ fontWeight: 700, mb: 3, textAlign: 'center' }}>
                 Travel <span style={{ color: '#1976d2' }}>Stories</span>
-            </Typography>
+            </Typography> */}
+            <Typography variant="h5" fontWeight="bold" sx={{paddingBottom:"16px"}}>
+            Travel <span style={{ color: "red" }}>Stories</span>
+                  </Typography>
             <Slider {...settings}>
                 {stories.map((story, index) => (
                     <Box key={index} sx={{ padding: isMobile ? '0 5px' : '0 10px' }}>

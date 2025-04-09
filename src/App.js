@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './Pages/Dashboard';
 import PassportApplicationPage from './Pages/QuickLinkDrawer/passport';
 import Footer from './Pages/Footer';
+import WhatsAppButton from './Component/WhatsAppIcon';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       </Routes>
     </Router>
     <Footer/>
+    {/* <WhatsAppButton/> */}
     </>
   );
 };

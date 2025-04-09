@@ -10,6 +10,7 @@ import FlightBooking from "./flight";
 import { HotelBooking } from "./hotel";
 import VisaPassportService from "./visa";
 import { CarRentalBooking } from "./cars";
+import { HolidayPack } from "./holiday";
 
 export const QuickLinkDrawer = ({ open, onClose, selectedQuickLink }) => {
     const theme = useTheme();
@@ -19,6 +20,8 @@ export const QuickLinkDrawer = ({ open, onClose, selectedQuickLink }) => {
     return (
         <Drawer anchor="right" open={open} onClose={onClose} PaperProps={{ sx: { width: isMobile ? "100vw" : 700 } }}>
             {selectedQuickLink === "Trains" && <TrainBooking selectedQuickLink={selectedQuickLink} onClose={onClose} />}
+            {selectedQuickLink === "Holiday Pack" && <HolidayPack selectedQuickLink={selectedQuickLink} onClose={onClose} />}
+
             {selectedQuickLink === "Flights" && <FlightBooking selectedQuickLink={selectedQuickLink} onClose={onClose} />}
             {selectedQuickLink === "Hotel" && <HotelBooking selectedQuickLink={selectedQuickLink} onClose={onClose} />}
             {selectedQuickLink === "Visa" && <VisaPassportService selectedQuickLink={selectedQuickLink} onClose={onClose} />}
