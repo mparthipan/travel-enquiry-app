@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import "./style.css"; // For animation
 
 const WhatsAppButton = () => {
-    const phoneNumber = "8678995593";
+    const phoneNumber = "7042255663";
     const message = "Hi! I would like to know more about your services.";
     const [anchorEl, setAnchorEl] = useState(null);
 

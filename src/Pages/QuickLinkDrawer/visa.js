@@ -181,7 +181,7 @@ const VisaPassportService = ({ selectedQuickLink, onClose }) => {
         `;
 
             const encodedMessage = encodeURIComponent(visaMessage);
-            const phoneNumber = "8678995593"; // Replace with your WhatsApp number
+            const phoneNumber = "7042255663"; // Replace with your WhatsApp number
             window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
 
             onClose();
